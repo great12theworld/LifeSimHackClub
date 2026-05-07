@@ -11,5 +11,7 @@ terminal.addEventListener('keydown', (event) => {
         const fullText = terminal.innerText;
         const newText = fullText.substring(inputStart).trim();
         inputStart = fullText.length;
+        console.log("input" + newText);
     }
+    
 })
