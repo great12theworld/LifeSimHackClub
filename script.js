@@ -19,17 +19,21 @@ function moveCursorToEnd() {
     selection.addRange(range);
 
 }
+//changed from a DOM system to text content for better input/output handling.
+
 async function typeText(text,speed = 20) {
     for (let i = 0; i < text.length; i++){
         terminal.textContent += text[i];
         moveCursorToEnd();
         await new Promise(resolve => setTimeout(resolve, speed));
     }
+
+
 }
 
 function addLineBreak(text) {
     const line = document.createElement('div');
-    line.textContent += text;
+    line.textContent = text;
     terminal.appendChild(line);
 }
 
@@ -43,10 +47,10 @@ terminal.addEventListener('beforeinput', async (event) => {
         
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            await typeText(" <br> Available commands: help, start, clear\n", 30);
+            await typeText(" --  Available commands: help, start, clear", 30);
         }
         
-        terminal.textContent += "\n> ";
+        addLineBreak(">");
         inputStart = terminal.innerText.length;
         moveCursorToEnd();
     }
