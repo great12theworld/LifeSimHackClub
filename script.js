@@ -22,13 +22,19 @@ function moveCursorToEnd() {
 //changed from a DOM system to text content for better input/output handling.
 
 async function typeText(text,speed = 20) {
-    for (let i = 0; i < text.length; i++){
-        terminal.textContent += text[i];
+    const line = document.createElement('div');
+    terminal.appendChild(line);
+
+    for (let i = 0; i < text.length; i++) {
+
+        line.textContent += text[i];
+
         moveCursorToEnd();
-        await new Promise(resolve => setTimeout(resolve, speed));
+
+        await new Promise(resolve =>
+            setTimeout(resolve, speed)
+        );
     }
-
-
 }
 
 function addLineBreak(text) {
@@ -47,9 +53,24 @@ terminal.addEventListener('beforeinput', async (event) => {
         
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            await typeText(" --  Available commands: help, start, clear", 30);
+            await typeText("Available commands: help, start, clear", 30);
+        }
+        if (newText.toLowerCase() === "start") {
+            gameStart = true;
         }
         
+        if (gameStart){
+            await typeText("Welcome to SimLifeX!", 50);
+            await typeText("This is a simple life simulation.",50)
+            await typeText("Systems are under development but will evolve over time.",50)
+            await typeText("If you ever get stuck, type 'help' for a list of commands.",50)
+            await typeText("I'm gonna patch you in now.",50);
+            await typeText("Good luck!",50);
+            await typeText("Loading",50);
+            await typeText("...",500);
+            gameStart = false;
+        }
+
         addLineBreak(">");
         inputStart = terminal.innerText.length;
         moveCursorToEnd();
@@ -61,4 +82,6 @@ terminal.addEventListener('beforeinput', async (event) => {
 terminal.textContent = "> ";
 inputStart = terminal.innerText.length;
 
+
+//actual systems
 
