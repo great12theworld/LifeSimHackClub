@@ -5,6 +5,17 @@ let inputStart = 0;
 
 let gameStart = false; 
 
+let commandCount = 3;
+
+// for Starting Select systems:
+let stateStartingSelect = 0;
+let points = 10;
+let costIntelligence = 1;
+let costStrength = 1;
+let costAgility = 1;
+let costLuck = 1;
+
+
 const terminal = document.getElementById('terminal')
 
 function moveCursorToEnd() {
@@ -53,9 +64,13 @@ terminal.addEventListener('beforeinput', async (event) => {
         
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            await typeText("Available commands: help, start, clear", 30);
+            if (commandCount === 3) {
+                await typeText("Available commands: help, start, clear", 30);
+            } else if (commandCount === 4) {
+                await typeText("Available commands: help, clear ", 30);
+            }
         }
-        if (newText.toLowerCase() === "start") {
+        if (newText.toLowerCase() === "start" && commandCount === 3) {
             gameStart = true;
         }
         
@@ -68,12 +83,16 @@ terminal.addEventListener('beforeinput', async (event) => {
             await typeText("Good luck!",50);
             await typeText("Loading",50);
             await typeText("...",500);
+            await typeText("Done!",50);
+            await startingSelect();
             gameStart = false;
+            commandCount ++;
         }
 
         addLineBreak(">");
         inputStart = terminal.innerText.length;
         moveCursorToEnd();
+
     }
     
 })
@@ -84,4 +103,12 @@ inputStart = terminal.innerText.length;
 
 
 //actual systems
-
+async function startingSelect(){
+    await typeText("Welcome, you have been successfully loaded in", 50);
+    await typeText("You are now ready to begin your setup.", 50);
+    await typeText("Please choose how you want to split your points:", 50);
+    await typeText("1. Intelligence" + costIntelligence, 50);
+    await typeText("2. Strength" + costStrength, 50);
+    await typeText("3. Agility" + costAgility, 50);
+    await typeText("4. Luck Cost:" + costLuck, 50);
+}
