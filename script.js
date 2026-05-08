@@ -3,15 +3,24 @@ let seed = null //for game mechanics later on
 
 let inputStart = 0;
 
+
+
 const terminal = document.getElementById('terminal')
 
-terminal.addEventListener('keydown', (event) => {
+terminal.addEventListener('keydown', async (event) => {
     if (event.key === 'Enter') {
         event.preventDefault();
         const fullText = terminal.innerText;
         const newText = fullText.substring(inputStart).trim();
-        inputStart = fullText.length;
         console.log("input" + newText);
+        
+        if (newText.toLowerCase() === "help") {
+            // Handle help command
+            typeText("Available commands: help, start, clear", 30);
+        }
+        
+        terminal.textContent += "\n> ";
+        inputStart = terminal.innerText.length;
     }
     
 })
@@ -30,8 +39,9 @@ function moveCursorToEnd() {
 }
 async function typeText(text,speed = 20) {
     for (let i = 0; i < text.length; i++){
-        terminal.innerText += text[i];
+        terminal.textContent += text[i];
         moveCursorToEnd();
         await new Promise(resolve => setTimeout(resolve, speed));
     }
 }
+
