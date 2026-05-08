@@ -3,7 +3,7 @@ let seed = null //for game mechanics later on
 
 let inputStart = 0;
 
-
+let gameStart = false; 
 
 const terminal = document.getElementById('terminal')
 
@@ -27,6 +27,12 @@ async function typeText(text,speed = 20) {
     }
 }
 
+function addLineBreak(text) {
+    const line = document.createElement('div');
+    line.textContent += text;
+    terminal.appendChild(line);
+}
+
 
 terminal.addEventListener('beforeinput', async (event) => {
     if (event.inputType === "insertParagraph") {
@@ -35,12 +41,9 @@ terminal.addEventListener('beforeinput', async (event) => {
         const newText = fullText.substring(inputStart).trim();
         console.log(newText);
         
-
-
-        
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            await typeText(" Available commands: help, start, clear\n", 30);
+            await typeText(" <br> Available commands: help, start, clear\n", 30);
         }
         
         terminal.textContent += "\n> ";
