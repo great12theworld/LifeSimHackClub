@@ -7,24 +7,6 @@ let inputStart = 0;
 
 const terminal = document.getElementById('terminal')
 
-terminal.addEventListener('keydown', async (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        const fullText = terminal.innerText;
-        const newText = fullText.substring(inputStart).trim();
-        console.log("input" + newText);
-        
-        if (newText.toLowerCase() === "help") {
-            // Handle help command
-            typeText("Available commands: help, start, clear", 30);
-        }
-        
-        terminal.textContent += "\n> ";
-        inputStart = terminal.innerText.length;
-    }
-    
-})
-
 function moveCursorToEnd() {
     terminal.focus();
 
@@ -44,4 +26,32 @@ async function typeText(text,speed = 20) {
         await new Promise(resolve => setTimeout(resolve, speed));
     }
 }
+
+
+terminal.addEventListener('beforeinput', async (event) => {
+    if (event.inputType === "insertParagraph") {
+        event.preventDefault();
+        const fullText = terminal.innerText;
+        const newText = fullText.substring(inputStart).trim();
+        console.log(newText);
+        
+
+
+        
+        if (newText.toLowerCase() === "help") {
+            // Handle help command
+            await typeText(" Available commands: help, start, clear\n", 30);
+        }
+        
+        terminal.textContent += "\n> ";
+        inputStart = terminal.innerText.length;
+        moveCursorToEnd();
+    }
+    
+})
+
+//spin up terminal
+terminal.textContent = "> ";
+inputStart = terminal.innerText.length;
+
 
