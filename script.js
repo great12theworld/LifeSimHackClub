@@ -56,7 +56,7 @@ async function typeText(text,speed = 20) {
         scrollToBottom();
 
         await new Promise(resolve =>
-            setTimeout(resolve, 0)
+            setTimeout(resolve, speed)
         );
     }
 }
@@ -166,9 +166,9 @@ terminal.addEventListener('beforeinput', async (event) => {
         if (newText.toLowerCase() === "checkstats" && commandCount == 4){
             checkStats();
         }
-            
 
         endWrite();
+        
 
 
 
@@ -183,7 +183,7 @@ inputStart = terminal.innerText.length;
 
 //actual systems
 async function startingSelect(){ //only printing text for system.
-    await typeText("Welcome, you have been successfully loaded in", 50);
+    await typeText("Welcome, you have been successfully loaded in.", 50);
     await typeText("You are now ready to begin your setup.", 50);
     await typeText("Please choose how you want to split your 15 points:", 50);
     await typeText("1. Intelligence Cost: " + costIntelligence, 50);
@@ -218,28 +218,32 @@ async function endWrite() {
 
 async function storyPt1(){
     await typeText("'What is wrong with you today!' - Your mom is yelling at you.  ", 30)
-    await typeText("You dont know what to say", 50)
-    await typeText("'Why are you doing this to me!' - She said this with tears brimming collapse against her,", 60)
+    await typeText("You dont know what to say.", 30)
+    await typeText("'Why are you doing this to me!' - She said this with tears brimming collapse against her...", 60)
     await typeText("frail,", 75)
-    await typeText("eyelids.", 75)
+    await typeText("heavy eyelids.", 75)
     await typeText("You wake up.", 50)
-    await typeText("-----")
-    await typeText("-----")
-    await typeText("-----")
-    await typeText("That fragrant morning smell assimilates into the insides of your nose", 50)
-    await typeText("It smells wonderful. It smells like flowers blossoming and freshly cut grass.", 50)
-    await typeText("Everything feels so, nice. Like no matter what you did, it would be okay",50)
-    await typeText("'Hi mom!' - You say, seeing her in the hallway of your apartment on the 42 floor of the biggest apartment rental in 2099", 50)
-    await typeText("'Everything alright?' - She says, stopping by while carrying two huge boxes.",50)
+    await typeText("-----", 40)
+    await typeText("-----", 40)
+    await typeText("-----", 40)
+    await typeText("That fragrant morning smell assimilates into the insides of your nose. You cut open your last apple.")
+    await typeText("It smells wonderful. It smells like the memory of flowers blossoming and freshly cut grass.")
+    await typeText("Everything feels so, nice. Like no matter what you did, it would be okay.")
+    await typeText("'Hi mom!' - You say, seeing her in the hallway of your apartment on the 42nd floor of the biggest apartment rental in the district")
+    await typeText("'Everything alright?' - She says, stopping by while carrying two huge boxes.")
     await typeText("The white hue of the boxes reminds you of your sister for some reason.")
     await typeText("-----")
-    await typeText("'Yeah, no I just had a bad dream is all' - You notice labeling on the boxes for a")
-    await typeText(" 'GOLDBERG FOUNDATION??' - You yell out.")
+    await typeText("'Yeah, no I just had a bad dream is all' - You notice labeling on the boxes for a-")
+    await typeText(" 'THE GOLDBERG FOUNDATION??' - You yell out.", 40)
     await typeText("-----")
-    await typeText("'I dont see whats so wrong about that?' - Goldberg Foundation is one of the largest corporations to claim all resources from the government.")
+    await typeText("'I dont see what's so wrong about that?' - The Goldberg Foundation is one of the largest corporations to claim all resources from the government.")
     await typeText("After the government started giving out what little resources remained, split evenly across all people of course, large groups of people banded together.")
     await typeText("The Goldburg Foundation was the largest of all. They had managed to amass over 2.4 Million chips worth of food, clothing, water and more. Nothing was left.")
     await typeText("They operated by getting desperate people without families to give everything they had for a chance to earn more.")
     await typeText("Those who performed well, recived chips in the form of food and clothing.")
     await typeText("Those who did otherwise...", 50)
+    await typeText("-----")
+    await typeText(" -- You dont respond.")
+    await typeText("Your mom continues walking down the hall. You hear the thud of the boxes against the kitchen countertop.")
+    await typeText("You look out your window which ")
 }
