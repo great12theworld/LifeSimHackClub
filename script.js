@@ -1,5 +1,6 @@
-let playerName = null
-let seed = null //for game mechanics later on
+//let playerName = null
+//let seed = null //for game mechanics later on
+
 
 let inputStart = 0;
 
@@ -12,6 +13,8 @@ let playerStrength = 0
 let playerAgility = 0
 let playerLuck = 0
 
+
+let openingStoryState = "unstarted"
 
 // for Starting Select systems:
 let stateStartingSelect = "unstarted";
@@ -27,8 +30,10 @@ const terminal = document.getElementById('terminal')
 function moveCursorToEnd() {
     terminal.focus();
 
+    const lastLine =terminal.lastChild;
+
     const range = document.createRange();
-    range.selectNodeContents(terminal);
+    range.selectNodeContents(lastLine);
     range.collapse(false);
     
     const selection = window.getSelection();
@@ -81,21 +86,29 @@ terminal.addEventListener('beforeinput', async (event) => {
                 await typeText("Available commands: help, start, clear", 30);
             } else if (commandCount === 4) {
                 await typeText("Available commands: help, clear, loadstats, checkstats ", 30);
+            } else if (commandCount === 5){
+                await typeText("Available commands: help, clear, checkstats, startstory")
             }
         }
+
+
 
         if (newText.toLowerCase() === "start" && commandCount === 3) {
             gameStart = true;
         }
         
+
+
         if (gameStart){
-            await typeText("Welcome to SimLifeX!", 50);
-            await typeText("This is a simple life simulation.",50)
-            await typeText("Systems are under development but will evolve over time.",50)
-            await typeText("If you ever get stuck, type 'help' for a list of commands.",50)
-            await typeText("I'm gonna patch you in now.",50);
-            await typeText("Good luck!",50);
-            await typeText("Loading",50);
+            await typeText("Welcome to SimLifeX!");
+            await typeText("This is a simple life simulation.")
+            await typeText("Systems are under development but will evolve over time.")
+            await typeText("If you ever get stuck, type 'help' for a list of commands.")
+            await typeText("If there are bugs/gramatical mistakes hunt down the repository for this and lmk over there, or if you know me in person you can tell me that way!")
+            await typeText("Also Im not the greatest author so it might not be the best writing ever :sob:")
+            await typeText("I'm gonna patch you in now.");
+            await typeText("Good luck!");
+            await typeText("Loading");
             await typeText("...", 500);
             await typeText("Done!", 50);
             gameStart = false;
@@ -160,14 +173,20 @@ terminal.addEventListener('beforeinput', async (event) => {
             await typeText ("Luck: " + playerLuck)
             
             stateStartingSelect = "ended"
+            commandCount = 5;
+        }
 
+        if (openingStoryState === "unstarted" && commandCount === 5 && newText.toLowerCase() === "startstory"){
+            storyOpening();
         }
 
         if (newText.toLowerCase() === "checkstats" && commandCount == 4){
             checkStats();
         }
 
-        endWrite();
+        addLineBreak("> ");
+        inputStart = terminal.innerText.length;
+        moveCursorToEnd();
         
 
 
@@ -183,16 +202,16 @@ inputStart = terminal.innerText.length;
 
 //actual systems
 async function startingSelect(){ //only printing text for system.
-    await typeText("Welcome, you have been successfully loaded in.", 50);
-    await typeText("You are now ready to begin your setup.", 50);
-    await typeText("Please choose how you want to split your 15 points:", 50);
-    await typeText("1. Intelligence Cost: " + costIntelligence, 50);
-    await typeText("2. Strength Cost: " + costStrength, 50);
-    await typeText("3. Agility Cost: " + costAgility, 50);
-    await typeText("4. Luck Cost: " + costLuck, 50);
-    await typeText("Type a number: (1), (2), (3), (4)",50)
+    await typeText("Welcome, you have been successfully loaded in.");
+    await typeText("You are now ready to begin your setup.");
+    await typeText("Please choose how you want to split your 15 points:");
+    await typeText("1. Intelligence Cost: " + costIntelligence);
+    await typeText("2. Strength Cost: " + costStrength);
+    await typeText("3. Agility Cost: " + costAgility);
+    await typeText("4. Luck Cost: " + costLuck);
+    await typeText("Type a number: (1), (2), (3), (4)")
 
-    addLineBreak(">");
+    addLineBreak("> ");
     inputStart = terminal.innerText.length;
     moveCursorToEnd();
 
@@ -205,18 +224,20 @@ async function checkStats() {
     await typeText ("Agility: " + playerAgility)
     await typeText ("Luck: " + playerLuck)
 
-    addLineBreak(">");
-    inputStart = terminal.innerText.length;        
-    moveCursorToEnd();
-}
-
-async function endWrite() {
-    addLineBreak(">");
+    addLineBreak("> ");
     inputStart = terminal.innerText.length;
     moveCursorToEnd();
 }
 
-async function storyPt1(){
+async function endWrite() {
+    addLineBreak("> ");
+    inputStart = terminal.innerText.length;
+    moveCursorToEnd();
+}
+
+
+
+async function storyOpening(){
     await typeText("'What is wrong with you today!' - Your mom is yelling at you.  ", 30)
     await typeText("You dont know what to say.", 30)
     await typeText("'Why are you doing this to me!' - She said this with tears brimming collapse against her...", 60)
@@ -233,7 +254,7 @@ async function storyPt1(){
     await typeText("'Everything alright?' - She says, stopping by while carrying two huge boxes.")
     await typeText("The white hue of the boxes reminds you of your sister for some reason.")
     await typeText("-----")
-    await typeText("'Yeah, no I just had a bad dream is all' - You notice labeling on the boxes for a-")
+    await typeText("'Yeah, no I just had a bad dream is all.' - You notice labeling on the boxes for a-")
     await typeText(" 'THE GOLDBERG FOUNDATION??' - You yell out.", 40)
     await typeText("-----")
     await typeText("'I dont see what's so wrong about that?' - The Goldberg Foundation is one of the largest corporations to claim all resources from the government.")
@@ -245,5 +266,25 @@ async function storyPt1(){
     await typeText("-----")
     await typeText(" -- You dont respond.")
     await typeText("Your mom continues walking down the hall. You hear the thud of the boxes against the kitchen countertop.")
-    await typeText("You look out your window which ")
+    await typeText("You look out your window which stares downward into the streets below and upwards to the airy clouds.")
+    await typeText("-----")
+    await typeText("At the train station:   ")
+    await typeText("'Bye sweetie!! I'll see you next time you visit alright!!' -- You smile from inside the train as you make your way home.")
+    await typeText("You have some things to do if you intend to survive.")
+    await typeText("-----",70)
+    await typeText("SYSTEM MSG: You will officially begin your story in the city of Lurilin.")
+    await typeText("Your story will be shaped by the decisions you make.")
+    await typeText("You can do things from calling people, meeting new ones, working. Even climbing the ranks of the Goldburg Foundation if you wish.")
+    await typeText("You can make your story all about money, love, revenge, or power.")
+    await typeText("Each one will be determined by numerous built in factors, each one having different levels of difficulty.")
+    await typeText("Each ending carving itself in its own way.")
+    await typeText("As of now only one ending can be achieved at one point")
+    await typeText("More help options have been unlocked, use them")
+    await typeText("As you proceed through the game certain commands will lock themselves, or SHOULD lock themselves")
+    await typeText("Ensuring that only one path out of the four can be attained.")
+    await typeText("--END MSG--");
+    addLineBreak("> ");
+    inputStart = terminal.innerText.length;        
+    moveCursorToEnd();
+    commandCount = 6
 }
