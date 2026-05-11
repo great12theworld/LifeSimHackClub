@@ -24,6 +24,9 @@ let costStrength = 1;
 let costAgility = 1;
 let costLuck = 1;
 
+// for money system;
+CurrentMoney = 0;
+
 
 const terminal = document.getElementById('terminal')
 
@@ -83,14 +86,16 @@ terminal.addEventListener('beforeinput', async (event) => {
         if (newText.toLowerCase() === "help") {
             // Handle help command
             if (commandCount === 3) {
-                await typeText("Available commands: help, start, clear", 30);
+                await typeText("Available commands: help, clear, start", 30);
             } else if (commandCount === 4) {
                 await typeText("Available commands: help, clear, loadstats, checkstats ", 30);
             } else if (commandCount === 5){
                 await typeText("Available commands: help, clear, checkstats, startstory")
+            } else if (commandCount === 6){
+                await typeText("Available commands: help, clear, work, callsomeone, checkmoney, checkstats, checkrelations.")
             }
         }
-
+        
 
 
         if (newText.toLowerCase() === "start" && commandCount === 3) {
@@ -104,6 +109,7 @@ terminal.addEventListener('beforeinput', async (event) => {
             await typeText("This is a simple life simulation.")
             await typeText("Systems are under development but will evolve over time.")
             await typeText("If you ever get stuck, type 'help' for a list of commands.")
+            await typeText("TW: Heavy topics including death, violence, despair, or loss.")
             await typeText("If there are bugs/gramatical mistakes hunt down the repository for this and lmk over there, or if you know me in person you can tell me that way!")
             await typeText("Also Im not the greatest author so it might not be the best writing ever :sob:")
             await typeText("I'm gonna patch you in now.");
@@ -178,12 +184,15 @@ terminal.addEventListener('beforeinput', async (event) => {
 
         if (openingStoryState === "unstarted" && commandCount === 5 && newText.toLowerCase() === "startstory"){
             storyOpening();
+            commandCount = 6;
         }
+        if (newText,toLowerCase() === "checkmoney"){
 
+        }
         if (newText.toLowerCase() === "checkstats" && commandCount == 4){
             checkStats();
         }
-
+        
         addLineBreak("> ");
         inputStart = terminal.innerText.length;
         moveCursorToEnd();
@@ -287,4 +296,8 @@ async function storyOpening(){
     inputStart = terminal.innerText.length;        
     moveCursorToEnd();
     commandCount = 6
+}
+
+async function functionCheckMoney() {
+        
 }
