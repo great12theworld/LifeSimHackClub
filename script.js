@@ -25,16 +25,29 @@ let costAgility = 1;
 let costLuck = 1;
 
 
+
 // for money system;
 let CurrentMoney = 500;
 
 //for relationship systems;
 let RelationshipCount = 2;
 
-let person1_name = "Diane"
-let person1_relationship = "Mother"
-let person1_connection = 93
-let person1_value = "Infinte";
+let checkingRelations = false;
+
+let relationships = [
+    {
+        name: "Diane",
+        relationship: "Mother",
+        connection: 93,
+        value: "Infinite"
+    },   //DONT FORGET COMMAS!!!
+    {
+        name: "Ellie",
+        relationship: "Sister",
+        connection: 82,
+        value: "Infinite"
+    }
+]
 
 
 const terminal = document.getElementById('terminal')
@@ -203,12 +216,15 @@ terminal.addEventListener('beforeinput', async (event) => {
             checkStats();
         }
         if (newText.toLowerCase() ==="checkrelations" && commandCount === 6){
+            checkingRelations = true;
             if (RelationshipCount === 2){
-                await typeText("Name: " + person1_name)
-                await typeText("Relationship: " + person1_relationship)
-                await typeText("Connection level: " + person1_connection + "%")
-                await typeText("Value: " + person1_value)
+                await typeText("Please select a person")
+                await typeText(relationships[0].name + " (1)")
+                await typeText(relationships[1].name + " (2)")
             }
+        }
+        if (checkingRelations == true && newText.toLowerCase() == "1"){
+            
         }
         
         addLineBreak("> ");
