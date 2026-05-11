@@ -221,12 +221,20 @@ terminal.addEventListener('beforeinput', async (event) => {
                 await typeText("Please select a person")
                 await typeText(relationships[0].name + " (1)")
                 await typeText(relationships[1].name + " (2)")
+            } else {
+                await typeText("Error, something is wrong with the relationship systems!!")
             }
         }
-        if (checkingRelations == true && newText.toLowerCase() == "1"){
+        if (checkingRelations == true && Number(newText.toLowerCase())){
             
+            await typeText("Name: " + relationships[(Number(newText.toLowerCase()) - 1)].name)
+            await typeText("Relatioship: " + relationships[(Number(newText.toLowerCase()) - 1)].relationship)
+            await typeText("Connection: " + relationships[(Number(newText.toLowerCase()) - 1)].connection)
+            await typeText("Value: " + relationships[(Number(newText.toLowerCase()) - 1)].value)
+            checkingRelations = false;
         }
         
+
         addLineBreak("> ");
         inputStart = terminal.innerText.length;
         moveCursorToEnd();
