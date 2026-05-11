@@ -24,8 +24,17 @@ let costStrength = 1;
 let costAgility = 1;
 let costLuck = 1;
 
+
 // for money system;
-CurrentMoney = 0;
+let CurrentMoney = 500;
+
+//for relationship systems;
+let RelationshipCount = 2;
+
+let person1_name = "Diane"
+let person1_relationship = "Mother"
+let person1_connection = 93
+let person1_value = "Infinte";
 
 
 const terminal = document.getElementById('terminal')
@@ -85,7 +94,7 @@ terminal.addEventListener('beforeinput', async (event) => {
         
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            if (commandCount === 3) {
+            if (commandCount === 3) { //command count will be used over and over again as a type of 'gamestate'
                 await typeText("Available commands: help, clear, start", 30);
             } else if (commandCount === 4) {
                 await typeText("Available commands: help, clear, loadstats, checkstats ", 30);
@@ -98,13 +107,14 @@ terminal.addEventListener('beforeinput', async (event) => {
         
 
 
-        if (newText.toLowerCase() === "start" && commandCount === 3) {
+        if (newText.toLowerCase() === "start" && commandCount === 3) { //if the user types in start and the right game state is made available then it will run
+            //this code is redundant and could be reduced, but I did not optimize this, I may go back in later and do that.
             gameStart = true;
         }
         
 
 
-        if (gameStart){
+        if (gameStart){ // introduction text
             await typeText("Welcome to SimLifeX!");
             await typeText("This is a simple life simulation.")
             await typeText("Systems are under development but will evolve over time.")
@@ -186,11 +196,19 @@ terminal.addEventListener('beforeinput', async (event) => {
             storyOpening();
             commandCount = 6;
         }
-        if (newText,toLowerCase() === "checkmoney"){
-
+        if (newText.toLowerCase() === "checkmoney" && commandCount === 6){
+            CheckMoney();
         }
         if (newText.toLowerCase() === "checkstats" && commandCount == 4){
             checkStats();
+        }
+        if (newText.toLowerCase() ==="checkrelations" && commandCount === 6){
+            if (RelationshipCount === 2){
+                await typeText("Name: " + person1_name)
+                await typeText("Relationship: " + person1_relationship)
+                await typeText("Connection level: " + person1_connection + "%")
+                await typeText("Value: " + person1_value)
+            }
         }
         
         addLineBreak("> ");
@@ -298,6 +316,10 @@ async function storyOpening(){
     commandCount = 6
 }
 
-async function functionCheckMoney() {
-        
+async function CheckMoney() {
+    await typeText("Your current chip count is:")
+    await typeText(CurrentMoney +" Chips")
+    addLineBreak("> ")
+    inputStart = terminal.innerText.length;
+    moveCursorToEnd();
 }
