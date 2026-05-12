@@ -8,6 +8,12 @@ let gameStart = false;
 
 let commandCount = 3;
 
+let unlockedCommands = [
+    "help", 
+    "clear",
+    "start",
+]
+
 let playerInelligence = 0
 let playerStrength = 0
 let playerAgility = 0
@@ -111,6 +117,16 @@ function addLineBreak(text) {
 }
 
 
+function checkCommands(){
+    for (let i = 0; i<arguments.length; i++){
+        let checktemp = unlockedCommands.includes(arguments[i])
+        if (checktemp == false){
+            return false;
+        }
+    }
+    return true;
+}
+
 terminal.addEventListener('beforeinput', async (event) => {
     if (event.inputType === "insertParagraph") {
         event.preventDefault();
@@ -119,13 +135,16 @@ terminal.addEventListener('beforeinput', async (event) => {
         
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            if (commandCount === 3) { //command count will be used over and over again as a type of 'gamestate'
+            if (checkCommands("help","clear","start")) { //command count will be used over and over again as a type of 'gamestate'
                 await typeText("Available commands: help, clear, start", 30);
-            } else if (commandCount === 4) {
+
+            } else if (checkCommands("help","clear","loadstats","checkstats")) {
                 await typeText("Available commands: help, clear, loadstats, checkstats ", 30);
-            } else if (commandCount === 5){
+
+            } else if (checkCommands("help","clear","checkstats","startstory")){
                 await typeText("Available commands: help, clear, checkstats, startstory")
-            } else if (commandCount === 6){
+
+            } else if (checkCommands("help","clear","work","callsomeone","checkmoney","checkstats","checkrelations")){
                 await typeText("Available commands: help, clear, work, callsomeone, checkmoney, checkstats, checkrelations.")
             }
         }
@@ -217,14 +236,14 @@ terminal.addEventListener('beforeinput', async (event) => {
             commandCount = 5;
         }
 
-        if (openingStoryState === "unstarted" && commandCount === 5 && newText.toLowerCase() === "startstory"){
+        if (openingStoryState === "unstarted" && unlockedCommands.includes("startstory") && newText.toLowerCase() === "startstory"){
             storyOpening();
             commandCount = 6;
         }
-        if (newText.toLowerCase() === "checkmoney" && commandCount >= 6){
+        if (newText.toLowerCase() === "checkmoney" && unlockedCommands.includes("checkmoney")){
             CheckMoney();
         }
-        if (newText.toLowerCase() === "checkstats" && commandCount >= 4){
+        if (newText.toLowerCase() === "checkstats" && unlockedCommands.includes("checkstats")){
             checkStats();
         }
 
@@ -354,7 +373,10 @@ async function storyOpening(){
     addLineBreak("> ");
     inputStart = terminal.innerText.length;        
     moveCursorToEnd();
-    commandCount = 6
+    unlockedCommands.push("callsomeone")
+    unlockedCommands.push("checkmoney")
+    unlockedCommands.push("checkstats")
+    unlockedCommands.push("checkrelations")
 }
 
 async function CheckMoney() {
