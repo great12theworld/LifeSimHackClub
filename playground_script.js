@@ -13,6 +13,18 @@ let playerStrength = 0
 let playerAgility = 0
 let playerLuck = 0
 
+let player = {
+    stats:{
+        inteligence: 0,
+        strength: 0,
+        agility: 0,
+        luck: 0,
+    },
+    money: 0,
+
+    state: "preStartup"
+
+}
 
 let openingStoryState = "unstarted"
 
