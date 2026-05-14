@@ -193,51 +193,76 @@ terminal.addEventListener('beforeinput', async (event) => {
             await startingSelect()
             stateStartingSelect = "running"
         }
-        if (stateStartingSelect === "running" && newText.toLowerCase() === "1"){
-            if (statPoints >= 1){
-                statPoints = statPoints - 1;
-                playerInelligence ++;                        
-                await typeText("1 point added to Intelligence")
-                await typeText("Points remaining: " + statPoints)
-                await typeText("please select another number: (1), (2), (3), (4)")
-                moveCursorToEnd()
-            } 
+        // if (stateStartingSelect === "running" && newText.toLowerCase() === "1"){
+        //     if (statPoints >= 1){
+        //         statPoints = statPoints - 1;
+        //         playerInelligence ++;                        
+        //         await typeText("1 point added to Intelligence")
+        //         await typeText("Points remaining: " + statPoints)
+        //         await typeText("please select another number: (1), (2), (3), (4)")
+        //         moveCursorToEnd()
+        //     } 
         
-        }else if (stateStartingSelect === "running" && newText.toLowerCase() === "2"){
-            if (statPoints >= 1){
-                statPoints = statPoints - 1;
-                playerStrength ++;                        
-                await typeText("1 point added to Strength")
-                await typeText("Points remaining: " + statPoints)
-                await typeText("please select another number: (1), (2), (3), (4)")
-                moveCursorToEnd()
-            }
+        // }else if (stateStartingSelect === "running" && newText.toLowerCase() === "2"){
+        //     if (statPoints >= 1){
+        //         statPoints = statPoints - 1;
+        //         playerStrength ++;                        
+        //         await typeText("1 point added to Strength")
+        //         await typeText("Points remaining: " + statPoints)
+        //         await typeText("please select another number: (1), (2), (3), (4)")
+        //         moveCursorToEnd()
+        //     }
 
 
-        } else if (stateStartingSelect === "running" && newText.toLowerCase() === "3"){
-            if (statPoints >= 1){
-                statPoints = statPoints - 1;
-                playerAgility ++;
-                await typeText("1 point added to Agility")
-                await typeText("Points remaining: " + statPoints)
-                await typeText("please select another number: (1), (2), (3), (4)")
-                moveCursorToEnd()
-            }
+        // } else if (stateStartingSelect === "running" && newText.toLowerCase() === "3"){
+        //     if (statPoints >= 1){
+        //         statPoints = statPoints - 1;
+        //         playerAgility ++;
+        //         await typeText("1 point added to Agility")
+        //         await typeText("Points remaining: " + statPoints)
+        //         await typeText("please select another number: (1), (2), (3), (4)")
+        //         moveCursorToEnd()
+        //     }
             
         
         
         
-        } else if (stateStartingSelect === "running" && newText.toLowerCase() === "4"){
-            if (statPoints >= 1){
-                statPoints = statPoints - 1;
-                playerLuck ++;                        
-                await typeText("1 point added to Luck")
-                await typeText("Points remaining: " + statPoints)
-                await typeText("please select another number: (1), (2), (3), (4)")
-                moveCursorToEnd()
+        // } else if (stateStartingSelect === "running" && newText.toLowerCase() === "4"){
+        //     if (statPoints >= 1){
+        //         statPoints = statPoints - 1;
+        //         playerLuck ++;                        
+        //         await typeText("1 point added to Luck")
+        //         await typeText("Points remaining: " + statPoints)
+        //         await typeText("please select another number: (1), (2), (3), (4)")
+        //         moveCursorToEnd()
+        //     }
+
+        // } 
+        if (stateStartingSelect === "running"){
+            let whichStat = 0
+            let currentStatSelect = null
+
+            if (currentStatSelect = "Intelligence" && !isNaN(Number(newText.toLowerCase()))){
+                 
             }
 
-        } 
+            if (whichStat = 0){
+                await typeText("How many points do you want in Intelligence")
+                currentStatSelect = "Intelligence"
+            } else if (whichStat = 1){
+                await typeText("How many points do you want in Strength")
+                currentStatSelect = "Strength"
+            } else if(whichStat = 2){
+                await typeText("How many points do you want in Agility")
+                currentStatSelect = "Agility"
+            } else if(whichStat = 3){
+                await typeText("How many points do you want in Luck")
+                currentStatSelect = "Luck"
+            }
+
+            
+        }
+
         if (stateStartingSelect === "running" && statPoints < 1){
             await typeText ("You have now used all of your points")
             await typeText ("Your stats are the following:")
@@ -255,7 +280,7 @@ terminal.addEventListener('beforeinput', async (event) => {
             // addLineBreak("> ");
             // inputStart = terminal.innerText.length;        
             // moveCursorToEnd();
-            unlockedCommands.push("callsomeone")
+            unlockedCommands.push("callsomeone") // adds the commands into the array.
             unlockedCommands.push("checkmoney")
             unlockedCommands.push("checkstats")
             unlockedCommands.push("checkrelations")
