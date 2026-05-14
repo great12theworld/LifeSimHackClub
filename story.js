@@ -1,6 +1,6 @@
 import { 
     typeText,
- } from "./script.js";
+ } from "./main.js";
 
 
 export async function storyOpening(){

@@ -9,29 +9,11 @@ let gameStart = false;
 
 let commandCount = 3;
 
-let unlockedCommands = [
-    "help", 
-    "clear",
-    "start",
-]
-
 let playerInelligence = 0
 let playerStrength = 0
 let playerAgility = 0
 let playerLuck = 0
 
-let player = {
-    stats:{
-        inteligence: 0,
-        strength: 0,
-        agility: 0,
-        luck: 0,
-    },
-    money: 0,
-
-    state: "preStartup"
-
-}
 
 let openingStoryState = "unstarted"
 
@@ -93,7 +75,7 @@ function scrollToBottom() {
 
 //changed from a DOM system to text content for better input/output handling.
 
-async function typeText(text,speed = 20) {
+export async function typeText(text,speed = 20) {
     const line = document.createElement('div');
     terminal.appendChild(line);
 
@@ -110,23 +92,15 @@ async function typeText(text,speed = 20) {
     }
 }
 
+export {typeText}
+
 function addLineBreak(text) {
-    const line = document.createElement('div'); 
+    const line = document.createElement('div');
     line.textContent = text;
     terminal.appendChild(line);
     scrollToBottom();
 }
 
-
-function checkCommands(){
-    for (let i = 0; i<arguments.length; i++){
-        let checktemp = unlockedCommands.includes(arguments[i])
-        if (checktemp == false){
-            return false;
-        }
-    }
-    return true;
-}
 
 terminal.addEventListener('beforeinput', async (event) => {
     if (event.inputType === "insertParagraph") {
@@ -136,16 +110,13 @@ terminal.addEventListener('beforeinput', async (event) => {
         
         if (newText.toLowerCase() === "help") {
             // Handle help command
-            if (checkCommands("help","clear","start")) { //command count will be used over and over again as a type of 'gamestate'
+            if (commandCount === 3) { //command count will be used over and over again as a type of 'gamestate'
                 await typeText("Available commands: help, clear, start", 30);
-
-            } else if (checkCommands("help","clear","loadstats","checkstats")) {
+            } else if (commandCount === 4) {
                 await typeText("Available commands: help, clear, loadstats, checkstats ", 30);
-
-            } else if (checkCommands("help","clear","checkstats","startstory")){
+            } else if (commandCount === 5){
                 await typeText("Available commands: help, clear, checkstats, startstory")
-
-            } else if (checkCommands("help","clear","work","callsomeone","checkmoney","checkstats","checkrelations")){
+            } else if (commandCount === 6){
                 await typeText("Available commands: help, clear, work, callsomeone, checkmoney, checkstats, checkrelations.")
             }
         }
@@ -177,7 +148,7 @@ terminal.addEventListener('beforeinput', async (event) => {
         }
         
         if (newText.toLowerCase() === "loadstats" && stateStartingSelect === "unstarted" && commandCount == 4){
-            await startingSelect()
+            startingSelect()
             stateStartingSelect = "running"
         }
         if (stateStartingSelect === "running" && newText.toLowerCase() === "1"){
@@ -237,22 +208,15 @@ terminal.addEventListener('beforeinput', async (event) => {
             commandCount = 5;
         }
 
-        if (openingStoryState === "unstarted" && unlockedCommands.includes("startstory") && newText.toLowerCase() === "startstory"){
-            await storyOpening();
-            // addLineBreak("> ");
-            // inputStart = terminal.innerText.length;        
-            // moveCursorToEnd();
-            unlockedCommands.push("callsomeone")
-            unlockedCommands.push("checkmoney")
-            unlockedCommands.push("checkstats")
-            unlockedCommands.push("checkrelations")
+        if (openingStoryState === "unstarted" && commandCount === 5 && newText.toLowerCase() === "startstory"){
+            storyOpening();
             commandCount = 6;
         }
-        if (newText.toLowerCase() === "checkmoney" && unlockedCommands.includes("checkmoney")){
-            await CheckMoney();
+        if (newText.toLowerCase() === "checkmoney" && commandCount >= 6){
+            CheckMoney();
         }
-        if (newText.toLowerCase() === "checkstats" && unlockedCommands.includes("checkstats")){
-            await checkStats();
+        if (newText.toLowerCase() === "checkstats" && commandCount >= 4){
+            checkStats();
         }
 
         //checkrelations\add more characters stuff
@@ -279,9 +243,9 @@ terminal.addEventListener('beforeinput', async (event) => {
         }
         
 
-        // addLineBreak("> ");
-        // inputStart = terminal.innerText.length;
-        // moveCursorToEnd();
+        addLineBreak("> ");
+        inputStart = terminal.innerText.length;
+        moveCursorToEnd();
         
 
 
@@ -291,10 +255,8 @@ terminal.addEventListener('beforeinput', async (event) => {
 })
 
 //spin up terminal
-//spin up terminal
 terminal.textContent = "> ";
 inputStart = terminal.innerText.length;
-moveCursorToEnd();
 
 
 //actual systems
@@ -308,7 +270,9 @@ async function startingSelect(){ //only printing text for system.
     await typeText("4. Luck Cost: " + costLuck);
     await typeText("Type a number: (1), (2), (3), (4)")
 
-
+    addLineBreak("> ");
+    inputStart = terminal.innerText.length;
+    moveCursorToEnd();
 
 }
 
@@ -319,15 +283,22 @@ async function checkStats() {
     await typeText ("Agility: " + playerAgility)
     await typeText ("Luck: " + playerLuck)
 
+    addLineBreak("> ");
+    inputStart = terminal.innerText.length;
+    moveCursorToEnd();
 }
 
-// async function endWrite() {
-//     addLineBreak("> ");
-//     inputStart = terminal.innerText.length;
-//     moveCursorToEnd();
-// }
+async function endWrite() {
+    addLineBreak("> ");
+    inputStart = terminal.innerText.length;
+    moveCursorToEnd();
+}
+
 
 async function CheckMoney() {
     await typeText("Your current chip count is:")
     await typeText(CurrentMoney +" Chips")
+    addLineBreak("> ")
+    inputStart = terminal.innerText.length;
+    moveCursorToEnd();
 }
