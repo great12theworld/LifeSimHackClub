@@ -252,16 +252,19 @@ terminal.addEventListener('beforeinput', async (event) => {
                  if (points >= Number(newText.toLowerCase())){
                     points = points - Number(newText.toLowerCase())
                     player.stats.strength += Number(newText.toLowerCase())
+                    await typeText("Points added to Strength")
                  }
             } else if (currentStatSelect = "Agility" && !isNaN(Number(newText.toLowerCase()))){
                  if (points >= Number(newText.toLowerCase())){
                     points = points - Number(newText.toLowerCase())
                     player.stats.agility += Number(newText.toLowerCase())
+                    await typeText("Points added to Agility")
                  }
             } else if (currentStatSelect = "Luck" && !isNaN(Number(newText.toLowerCase()))){
                  if (points >= Number(newText.toLowerCase())){
                     points = points - Number(newText.toLowerCase())
                     player.stats.luck += Number(newText.toLowerCase())
+                    await typeText("Points added to Luck")
                  }
             }
 
