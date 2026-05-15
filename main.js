@@ -21,6 +21,10 @@ let unlockedCommands = [
     "start",
 ]
 
+
+let whichStat = 0;
+let currentStatSelect = null;
+
 // let playerInelligence = 0
 // let playerStrength = 0
 // let playerAgility = 0
@@ -239,67 +243,74 @@ terminal.addEventListener('beforeinput', async (event) => {
 
         // } 
         if (stateStartingSelect === "running"){
-            let whichStat = 0
-            let currentStatSelect = null
 
-            if (currentStatSelect = "Intelligence" && !isNaN(Number(newText.toLowerCase()))){
-                 if (points >= Number(newText.toLowerCase()) && (!(points - Number(newText.toLowerCase()) < 0))){
-                    points = points - Number(newText.toLowerCase())
-                    player.stats.inteligence += Number(newText.toLowerCase())
-                    await typeText("Points added to Intelligence")
-                 }
-            } else if (currentStatSelect = "Strength" && !isNaN(Number(newText.toLowerCase()))){
-                 if (points >= Number(newText.toLowerCase())){
-                    points = points - Number(newText.toLowerCase())
-                    player.stats.strength += Number(newText.toLowerCase())
-                    await typeText("Points added to Strength")
-                 }
-            } else if (currentStatSelect = "Agility" && !isNaN(Number(newText.toLowerCase()))){
-                 if (points >= Number(newText.toLowerCase())){
-                    points = points - Number(newText.toLowerCase())
-                    player.stats.agility += Number(newText.toLowerCase())
-                    await typeText("Points added to Agility")
-                 }
-            } else if (currentStatSelect = "Luck" && !isNaN(Number(newText.toLowerCase()))){
-                 if (points >= Number(newText.toLowerCase())){
-                    points = points - Number(newText.toLowerCase())
-                    player.stats.luck += Number(newText.toLowerCase())
-                    await typeText("Points added to Luck")
-                 }
+            if (!(points = 0)){
+                if (currentStatSelect = "Intelligence" && !isNaN(Number(newText.toLowerCase()))){
+                    if (points >= Number(newText.toLowerCase()) && (!(points - Number(newText.toLowerCase()) < 0))){
+                        points = points - Number(newText.toLowerCase())
+                        player.stats.inteligence += Number(newText.toLowerCase())
+                        await typeText("Points added to Intelligence")
+                    }
+                } else if (currentStatSelect = "Strength" && !isNaN(Number(newText.toLowerCase()))){
+                    if (points >= Number(newText.toLowerCase()) && (!(points - Number(newText.toLowerCase()) < 0))){
+                        points = points - Number(newText.toLowerCase())
+                        player.stats.strength += Number(newText.toLowerCase())
+                        await typeText("Points added to Strength")
+                    }
+                } else if (currentStatSelect = "Agility" && !isNaN(Number(newText.toLowerCase()))){
+                    if (points >= Number(newText.toLowerCase()) && (!(points - Number(newText.toLowerCase()) < 0))){
+                        points = points - Number(newText.toLowerCase())
+                        player.stats.agility += Number(newText.toLowerCase())
+                        await typeText("Points added to Agility")
+                    }
+                } else if (currentStatSelect = "Luck" && !isNaN(Number(newText.toLowerCase()))){
+                    if (points >= Number(newText.toLowerCase()) && (!(points - Number(newText.toLowerCase()) < 0))){
+                        points = points - Number(newText.toLowerCase())
+                        player.stats.luck += Number(newText.toLowerCase())
+                        await typeText("Points added to Luck")
+                    }
+                }
+
+                if (whichStat = 0){
+                    await typeText("How many points do you want in Intelligence")
+                    currentStatSelect = "Intelligence"
+                    whichStat = 1
+                } else if (whichStat = 1){
+                    await typeText("How many points do you want in Strength")
+                    currentStatSelect = "Strength"
+                    whichStat = 2
+                } else if(whichStat = 2){
+                    await typeText("How many points do you want in Agility")
+                    currentStatSelect = "Agility"
+                    whichStat = 3
+                } else if(whichStat = 3){
+                    await typeText("How many points do you want in Luck")
+                    currentStatSelect = "Luck"
+                    whichStat = "done"
+                }
+            } else {
+                await typeText ("You have now used all of your points")
+                await typeText ("Your stats are the following:")
+                await typeText ("Intelligence: " + playerInelligence)
+                await typeText ("Strength: " + playerStrength)
+                await typeText ("Agility: " + playerAgility)
+                await typeText ("Luck: " + playerLuck)
+                unlockedCommands.push("startstory")
+                stateStartingSelect = "ended"
             }
-
-            if (whichStat = 0){
-                await typeText("How many points do you want in Intelligence")
-                currentStatSelect = "Intelligence"
-                whichStat = 1
-            } else if (whichStat = 1){
-                await typeText("How many points do you want in Strength")
-                currentStatSelect = "Strength"
-                whichStat = 2
-            } else if(whichStat = 2){
-                await typeText("How many points do you want in Agility")
-                currentStatSelect = "Agility"
-                whichStat = 3
-            } else if(whichStat = 3){
-                await typeText("How many points do you want in Luck")
-                currentStatSelect = "Luck"
-                whichStat = "done"
-            }
-
-            
         }
 
-        if (stateStartingSelect === "running" && statPoints < 1){
-            await typeText ("You have now used all of your points")
-            await typeText ("Your stats are the following:")
-            await typeText ("Intelligence: " + playerInelligence)
-            await typeText ("Strength: " + playerStrength)
-            await typeText ("Agility: " + playerAgility)
-            await typeText ("Luck: " + playerLuck)
-            unlockedCommands.push("startstory")
-            stateStartingSelect = "ended"
-            // commandCount = 5;
-        }
+        // if (stateStartingSelect === "running" && statPoints < 1){
+        //     await typeText ("You have now used all of your points")
+        //     await typeText ("Your stats are the following:")
+        //     await typeText ("Intelligence: " + playerInelligence)
+        //     await typeText ("Strength: " + playerStrength)
+        //     await typeText ("Agility: " + playerAgility)
+        //     await typeText ("Luck: " + playerLuck)
+        //     unlockedCommands.push("startstory")
+        //     stateStartingSelect = "ended"
+        //     // commandCount = 5;
+        // }
 
         if (openingStoryState === "unstarted" && unlockedCommands.includes("startstory") && newText.toLowerCase() === "startstory"){
             await storyOpening();
@@ -381,10 +392,10 @@ async function startingSelect(){ //only printing text for system.
 
 async function checkStats() {
     await typeText ("Your stats are the following:")
-    await typeText ("Intelligence: " + playerInelligence)
-    await typeText ("Strength: " + playerStrength)
-    await typeText ("Agility: " + playerAgility)
-    await typeText ("Luck: " + playerLuck)
+    await typeText ("Intelligence: " + player.stats.inteligence)
+    await typeText ("Strength: " + player.stats.strength)
+    await typeText ("Agility: " + player.stats.agility)
+    await typeText ("Luck: " + player.stats.luck)
 
 }
 
