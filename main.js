@@ -21,10 +21,10 @@ let unlockedCommands = [
     "start",
 ]
 
-let playerInelligence = 0
-let playerStrength = 0
-let playerAgility = 0
-let playerLuck = 0
+// let playerInelligence = 0
+// let playerStrength = 0
+// let playerAgility = 0
+// let playerLuck = 0
 
 let player = {
     stats:{
@@ -243,21 +243,44 @@ terminal.addEventListener('beforeinput', async (event) => {
             let currentStatSelect = null
 
             if (currentStatSelect = "Intelligence" && !isNaN(Number(newText.toLowerCase()))){
-                 
+                 if (points >= Number(newText.toLowerCase()) && (!(points - Number(newText.toLowerCase()) < 0))){
+                    points = points - Number(newText.toLowerCase())
+                    player.stats.inteligence += Number(newText.toLowerCase())
+                    await typeText("Points added to Intelligence")
+                 }
+            } else if (currentStatSelect = "Strength" && !isNaN(Number(newText.toLowerCase()))){
+                 if (points >= Number(newText.toLowerCase())){
+                    points = points - Number(newText.toLowerCase())
+                    player.stats.strength += Number(newText.toLowerCase())
+                 }
+            } else if (currentStatSelect = "Agility" && !isNaN(Number(newText.toLowerCase()))){
+                 if (points >= Number(newText.toLowerCase())){
+                    points = points - Number(newText.toLowerCase())
+                    player.stats.agility += Number(newText.toLowerCase())
+                 }
+            } else if (currentStatSelect = "Luck" && !isNaN(Number(newText.toLowerCase()))){
+                 if (points >= Number(newText.toLowerCase())){
+                    points = points - Number(newText.toLowerCase())
+                    player.stats.luck += Number(newText.toLowerCase())
+                 }
             }
 
             if (whichStat = 0){
                 await typeText("How many points do you want in Intelligence")
                 currentStatSelect = "Intelligence"
+                whichStat = 1
             } else if (whichStat = 1){
                 await typeText("How many points do you want in Strength")
                 currentStatSelect = "Strength"
+                whichStat = 2
             } else if(whichStat = 2){
                 await typeText("How many points do you want in Agility")
                 currentStatSelect = "Agility"
+                whichStat = 3
             } else if(whichStat = 3){
                 await typeText("How many points do you want in Luck")
                 currentStatSelect = "Luck"
+                whichStat = "done"
             }
 
             
