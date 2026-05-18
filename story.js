@@ -88,5 +88,5 @@ export async function storyDarkLurilin() {
    await typeText("-----")
    await typeText("Your CC slows into a stop as you step outside into Lower Lurilin, one of the 6 sectors of Lurilin")
    await typeText("The smog clouded air hits your lungs first. It smells like if acid could take on the state of a gas.")
-   await typeText("Your lungs sting a bit.")
+   await typeText("Your lungs sting.")
 }

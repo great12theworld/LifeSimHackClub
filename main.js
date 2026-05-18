@@ -377,10 +377,12 @@ terminal.addEventListener('beforeinput', async (event) => {
             checkingRelations = false;
         }
 
-        
+
         if (newText.toLowerCase =="work" && unlockedCommands.includes("work")){
             await typeText("Please select an option:")
-
+            await typeText("Apply for a job with the Goldberg Foundation (1)")
+            await typeText("Apply for a job at the store TENCENTER (2)")
+            await typeText("Apply ") // If strength and agility are over 4, or equal to 5
         }
         
 
