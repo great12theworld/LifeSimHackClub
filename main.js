@@ -1,7 +1,7 @@
 //let playerName = null
 //let seed = null //for game mechanics later on
 
-import {storyOpening} from "./story.js"
+import {storyOpening, storyJobGoldbergOpening} from "./story.js"
 
 let spinUpRan = false
 
@@ -355,7 +355,7 @@ terminal.addEventListener('beforeinput', async (event) => {
         }
 
         //checkrelations\add more characters stuff
-        if (newText.toLowerCase() ==="checkrelations" && unlockedCommands.includes("checkrelations")){
+        if (newText.toLowerCase() === "checkrelations" && unlockedCommands.includes("checkrelations")){
             checkingRelations = true;
             if (RelationshipCount === 2){
                 await typeText("Please select a person")
@@ -378,11 +378,26 @@ terminal.addEventListener('beforeinput', async (event) => {
         }
 
 
-        if (newText.toLowerCase =="work" && unlockedCommands.includes("work")){
-            await typeText("Please select an option:")
-            await typeText("Apply for a job with the Goldberg Foundation (1)")
-            await typeText("Apply for a job at the store TENCENTER (2)")
-            await typeText("Apply ") // If strength and agility are over 4, or equal to 5
+        if ((newText.toLowerCase() == "work" && unlockedCommands.includes("work")) || player.state == "inWorkMenu"){
+            
+            if (player.state != "inWorkMenu"){
+                await typeText("Please select an option:")
+                await typeText("Apply for a job with the Goldberg Foundation (1)")
+                await typeText("Apply for a job at the store TENCENTER (2)")
+                await typeText("Work freelance online (3), Requires 5 in intelligence.") // If intellignence in greater than 5 this is option.
+            } else {
+                if (newText.toLowerCase() == "1"){
+                    await typeText("You selected: Working at the GOLDBURG FOUNDATION")
+                    await typeText("This will affect your story...")
+                    await typeText("-----")
+                    await storyJobGoldbergOpening()
+                } else if (newText.toLowerCase() == "2"){
+                    await typeText("You selected: Working at the corner store, TENCENTER")
+                    await typeText("This will affect your story...")
+                    await typeText("-----")
+                }
+            }
+            player.state = "inWorkMenu";
         }
         
 

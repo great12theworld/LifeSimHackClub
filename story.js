@@ -67,6 +67,8 @@ export async function storyOpening(){
 
  }
 
+// Frontier sector
+
 export async function storyJobGoldbergOpening() {
    await typeText("You decide to apply for a job at the Goldberg Foundation.")
    await typeText("-----")
@@ -76,17 +78,27 @@ export async function storyJobGoldbergOpening() {
    await typeText("The atmosphere is charged with something you can't quite put your tongue on.")
    await typeText("-----")
    await typeText("...",300)
-   await typeText("The Goldberg Foundation. 8:21 AM")
+   await typeText("The Goldberg Foundation. 6:57 AM")
    await typeText("-----")
    await typeText("You look up to see the towering building above you. It glows yellow.")
    await typeText("Walking in, the smooth marble tables, and polished tiled floors.")
    await typeText("Everything back home is so, dissonant in comparison to the prestiege this place holds.")
    await typeText("'God.' You say, astounded.")
 }
+
+
+// Lower sector
 export async function storyDarkLurilin() {
    await typeText("You decide to apply for a job at TENCENTER, your local store")
    await typeText("-----")
+   await typeText("Lower Sector. 8:21 AM")
    await typeText("Your CC slows into a stop as you step outside into Lower Lurilin, one of the 6 sectors of Lurilin")
    await typeText("The smog clouded air hits your lungs first. It smells like if acid could take on the state of a gas.")
    await typeText("Your lungs sting.")
+   await typeText("The dim lights above your head make the place seem so mutted in comparison to your house.")
+   await typeText("Then again, this place has been rotting with old tier tools being thrown around.")
+   await typeText("You notice a wrench on the floor and move to pick it up.")
+   await typeText("STOP")
+   await typeText("The sudden stimuli makes you jump.")
+   await typeText()
 }
