@@ -13,6 +13,8 @@ export async function storyOpening(){
     await typeText("-----", 40)
     await typeText("-----", 40)
     await typeText("-----", 40)
+    await typeText("Inner Banksville, 4:00 PM")
+    await typeText("-----")
     await typeText("That fragrant morning smell assimilates into the insides of your nose. You cut open your last apple.")
     await typeText("It smells wonderful. It smells like the memory of flowers blossoming and freshly cut grass.")
     await typeText("Everything feels so, nice. Like no matter what you did, it would be okay.")
@@ -30,11 +32,11 @@ export async function storyOpening(){
     await typeText("Those who performed well, recived chips in the form of food and clothing.")
     await typeText("Those who did otherwise...", 50)
     await typeText("-----")
-    await typeText(" -- You dont respond.")
+    await typeText(" -- at least according to your sister")
     await typeText("Your mom continues walking down the hall. You hear the thud of the boxes against the kitchen countertop.")
     await typeText("You look out your window which stares downward into the streets below and upwards to the airy clouds.")
     await typeText("-----")
-    await typeText("At the train station:   ")
+    await typeText("At the train station:")
     await typeText("'Bye sweetie!! I'll see you next time you visit alright!!' -- You smile from inside the train as you make your way home.")
     await typeText("You have some things to do if you intend to survive.")
     await typeText("-----",70)
@@ -52,3 +54,39 @@ export async function storyOpening(){
 
     let commandCount = 6;
  }
+
+ export async function historyBook1() { //may not be used, heavily inspired by cyberpunk.
+    await typeText("The grand history of the amazing city of Dark Lurilin")
+    await typeText("--------")
+    await typeText("Welcome to the city of all cities.")
+    await typeText("If you're reading this you are in the Library of the Great Macondo choom.")
+    await typeText("This short book will cover information regarding the city.")
+    await typeText("There's a reason this book aint authored choom")
+    await typeText("In the Dark Lurilin there are a few big corpos runnin the biz.")
+    await typeText("One, the Goldburg Foundation. This big corpo is running a HUUUGGEE scam within Intra choom.")
+
+ }
+
+export async function storyJobGoldbergOpening() {
+   await typeText("You decide to apply for a job at the Goldberg Foundation.")
+   await typeText("-----")
+   await typeText("Hsssss, the HL train pulls to a stop in Frontier Lurilin, one of the 6 sectors of Lurilin.")
+   await typeText("Also, one of the finest. No, THE finest.")
+   await typeText("Stepping out of the station, you can feel the pristine air, the money, the power floating around you.")
+   await typeText("The atmosphere is charged with something you can't quite put your tongue on.")
+   await typeText("-----")
+   await typeText("...",300)
+   await typeText("The Goldberg Foundation. 8:21 AM")
+   await typeText("-----")
+   await typeText("You look up to see the towering building above you. It glows yellow.")
+   await typeText("Walking in, the smooth marble tables, and polished tiled floors.")
+   await typeText("Everything back home is so, dissonant in comparison to the prestiege this place holds.")
+   await typeText("'God.' You say, astounded.")
+}
+export async function storyDarkLurilin() {
+   await typeText("You decide to apply for a job at TENCENTER, your local store")
+   await typeText("-----")
+   await typeText("Your CC slows into a stop as you step outside into Lower Lurilin, one of the 6 sectors of Lurilin")
+   await typeText("The smog clouded air hits your lungs first. It smells like if acid could take on the state of a gas.")
+   await typeText("Your lungs sting a bit.")
+}

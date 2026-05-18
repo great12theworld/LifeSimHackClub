@@ -78,6 +78,12 @@ let relationships = [
     }
 ]
 
+let workOptions = [
+
+]
+
+
+
 
 const terminal = document.getElementById('terminal')
 
@@ -170,9 +176,9 @@ terminal.addEventListener('beforeinput', async (event) => {
         if (newText.toLowerCase() === "start" &&  unlockedCommands.includes("start")) { //if the user types in start and the right game state is made available then it will run
             //this code is redundant and could be reduced, but I did not optimize this, I may go back in later and do that.
             gameStart = true;
+            unlockedCommands
         }
         
-
 
         if (gameStart){ // introduction text
             await typeText("Welcome to SimLifeX!");
@@ -191,6 +197,7 @@ terminal.addEventListener('beforeinput', async (event) => {
             // commandCount ++;
             unlockedCommands.push("loadstats")
             unlockedCommands.push("checkstats")
+            unlockedCommands = unlockedCommands.filter(num => num !== "start")
         }
         
         if (newText.toLowerCase() === "loadstats" && stateStartingSelect === "unstarted" && unlockedCommands.includes("loadstats")){
@@ -302,7 +309,8 @@ terminal.addEventListener('beforeinput', async (event) => {
                     currentStatSelect = "Luck"
                     whichStat = "done"
                 }
-            } else {
+            } 
+            if (statPoints <= 0) {
                 await typeText ("You have now used all of your points")
                 await typeText ("Your stats are the following:")
                 await typeText ("Intelligence: " + player.stats.inteligence)
@@ -311,6 +319,7 @@ terminal.addEventListener('beforeinput', async (event) => {
                 await typeText ("Luck: " + player.stats.luck)
                 unlockedCommands.push("startstory")
                 stateStartingSelect = "ended"
+                unlockedCommands = unlockedCommands.filter(num => num !== "loadstats")
             }
         }
 
@@ -331,7 +340,7 @@ terminal.addEventListener('beforeinput', async (event) => {
             // addLineBreak("> ");
             // inputStart = terminal.innerText.length;        
             // moveCursorToEnd();
-            unlockedCommands.push("callsomeone") // adds the commands into the array.
+            unlockedCommands.push("callsomeone (Not Available, too much story)") // adds the commands into the array.
             unlockedCommands.push("checkmoney")
             unlockedCommands.push("checkstats")
             unlockedCommands.push("checkrelations")
@@ -366,6 +375,12 @@ terminal.addEventListener('beforeinput', async (event) => {
             await typeText("Connection: " + relationships[(Number(newText.toLowerCase()) - 1)].connection)
             await typeText("Value: " + relationships[(Number(newText.toLowerCase()) - 1)].value)
             checkingRelations = false;
+        }
+
+        
+        if (newText.toLowerCase =="work" && unlockedCommands.includes("work")){
+            await typeText("Please select an option:")
+
         }
         
 
