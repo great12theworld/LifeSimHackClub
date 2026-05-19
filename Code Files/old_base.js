@@ -1,7 +1,7 @@
 //let playerName = null
 //let seed = null //for game mechanics later on
 
-import {storyOpening} from "./story.js"
+import {storyOpening} from "../Story Files/story.js"
 
 let inputStart = 0;
 

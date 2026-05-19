@@ -1,7 +1,7 @@
 //let playerName = null
 //let seed = null //for game mechanics later on
 
-import {storyOpening, storyJobGoldbergOpening} from "./story.js"
+import {storyOpening, storyJobGoldbergOpening} from "../Story Files/story.js"
 
 let spinUpRan = false
 
@@ -81,6 +81,15 @@ let relationships = [
 let workOptions = [
 
 ]
+// Dialogue system
+let dialogueState = {
+    active: false,
+    npc: null,
+    currentNode: null
+}
+
+
+
 
 
 
@@ -150,7 +159,23 @@ terminal.addEventListener('beforeinput', async (event) => {
         event.preventDefault();
         const fullText = terminal.innerText;
         const newText = fullText.substring(inputStart).trim();
-        
+        if (dialogueState.active && !isNaN(Number(newText.toLowerCase()))){ //breaks in when the function rundialoge is ran
+            const currentNode = dialogueState.npc[dialogueState.currentNode]
+            const selectedOption = currentNode.options[Number(newText.toLowerCase())]
+                if (!selectedOption){
+                    await typeText("Invalid Option")
+                    return;
+                }
+                if (selectedOption.next === "end") {
+                    dialogueState.active = false
+                    await typeText("Conversation ended.")
+                    return;
+                }
+            await runDialogue(dialogueState.npc, selectedOption.next)
+            return;
+        }        
+
+
         if (newText.toLowerCase() === "help") {
             // Handle help command
                 // if (checkCommands("help","clear","start")) { // command count no longer exsists.
@@ -170,7 +195,7 @@ terminal.addEventListener('beforeinput', async (event) => {
                     await typeText(unlockedCommands[i])
                 }
         }
-        
+
 
 
         if (newText.toLowerCase() === "start" &&  unlockedCommands.includes("start")) { //if the user types in start and the right game state is made available then it will run
@@ -454,4 +479,19 @@ async function checkStats() {
 async function CheckMoney() {
     await typeText("Your current chip count is:")
     await typeText(CurrentMoney +" Chips")
+}
+
+//dialogue options/system
+async function runDialogue(dialogue, nodeName) {
+    const node = dialogue[nodeName]
+
+    dialogueState.active = true;
+    dialogueState.npc = dialogue
+    dialogueState.currentNode = nodeName
+
+    await typeText(node.text)
+
+    for (let i = 0; i < node.options.length; i++){
+        await typeText( `${i + 1}. ${node.options[i].text}`)
+    }
 }
