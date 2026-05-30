@@ -17,7 +17,6 @@ let states = {
 
 let unlockedCommands = [
     "help", 
-    "clear",
     "start",
 ]
 
@@ -174,7 +173,7 @@ terminal.addEventListener('beforeinput', async (event) => {
         if (newText.toLowerCase() === "start" &&  unlockedCommands.includes("start")) { //if the user types in start and the right game state is made available then it will run
             //this code is redundant and could be reduced, but I did not optimize this, I may go back in later and do that.
             gameStart = true;
-            unlockedCommands
+            unlockedCommands //idk what this is, but it works so im leaving it, very old code i believe
         }
         
 
@@ -183,7 +182,7 @@ terminal.addEventListener('beforeinput', async (event) => {
             await typeText("This is a simple life simulation.")
             await typeText("Systems are under development but will evolve over time.")
             await typeText("If you ever get stuck, type 'help' for a list of commands.")
-            await typeText("TW: Heavy topics including death, violence, despair, or loss.")
+            // await typeText("TW: Heavy topics including death, violence, despair, or loss.")
             await typeText("If there are bugs/gramatical mistakes hunt down the repository for this and lmk over there, or if you know me in person you can tell me that way!")
             await typeText("Also Im not the greatest author so it might not be the best writing ever :sob:")
             await typeText("I'm gonna patch you in now.");
@@ -338,10 +337,11 @@ terminal.addEventListener('beforeinput', async (event) => {
             // addLineBreak("> ");
             // inputStart = terminal.innerText.length;        
             // moveCursorToEnd();
-            unlockedCommands.push("callsomeone (Not Available, too much story)") // adds the commands into the array.
+            // unlockedCommands.push("callsomeone (Not Available, too much story)") // adds the commands into the array.
             unlockedCommands.push("checkmoney")
             unlockedCommands.push("checkstats")
             unlockedCommands.push("checkrelations")
+            unlockedCommands = unlockedCommands.filter(num => num !== "startstory")
             // unlockedCommands.push("work") cancelled due to unforseen issues with debug/programming, yeah no im js bad at coding :sob:
             // commandCount = 6;
         }
