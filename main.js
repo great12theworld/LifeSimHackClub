@@ -78,9 +78,7 @@ let relationships = [
     }
 ]
 
-let workOptions = [
 
-]
 
 
 
@@ -344,7 +342,7 @@ terminal.addEventListener('beforeinput', async (event) => {
             unlockedCommands.push("checkmoney")
             unlockedCommands.push("checkstats")
             unlockedCommands.push("checkrelations")
-            unlockedCommands.push("work")
+            // unlockedCommands.push("work") cancelled due to unforseen issues with debug/programming, yeah no im js bad at coding :sob:
             // commandCount = 6;
         }
         if (newText.toLowerCase() === "checkmoney" && unlockedCommands.includes("checkmoney")){
@@ -378,10 +376,7 @@ terminal.addEventListener('beforeinput', async (event) => {
         }
 
         
-        if (newText.toLowerCase =="work" && unlockedCommands.includes("work")){
-            await typeText("Please select an option:")
 
-        }
         
 
         addLineBreak("> ");
